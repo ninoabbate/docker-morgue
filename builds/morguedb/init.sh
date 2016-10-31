@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Wait 10 seconds because the mysql server don't accept connections at early startup
+# Wait 10 seconds because the mysql server doesn't accept connections at early startup
 sleep 10
 
 # Init morgue database

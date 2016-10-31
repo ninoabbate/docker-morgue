@@ -4,7 +4,7 @@ This application helps managing your postmortems. It has a pluggable feature sys
 
 Morgue consists of two containers: one mariadb database and the application (Apache + PHP 5).
 
-The Morgue container is built from scratch starting from Alpine and Morgue source code (https://github.com/etsy/morgue). 
+The Morgue container is built from scratch starting from Alpine Linux and Morgue source code (https://github.com/etsy/morgue). 
 
 ## Requirements
 - docker
