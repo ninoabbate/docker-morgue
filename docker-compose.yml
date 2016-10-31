@@ -1,0 +1,18 @@
+# Morgue definitions:
+#
+#   Morgue database
+morguedb:
+  image: aabbate/morguedb:latest
+  ports:
+    - "3306:3306"
+  hostname: morguedb
+
+#   Morgue application
+morgue:
+  image: aabbate/morgue:latest
+  ports:
+    - "80:80"
+  links:
+    - morguedb:db
+  hostname: morgue
+  domainname: morgue.yourdomain.com
