@@ -11,6 +11,7 @@ The Morgue container is built from scratch starting from Alpine Linux and Morgue
 - docker-compose
 
 ## How to run it
+First change the configurations in `example.json` file, then start morgue executing:
 ```
 $  docker-compose up -d
 ```

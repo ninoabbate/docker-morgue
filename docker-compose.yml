@@ -4,7 +4,7 @@
 morguedb:
   image: aabbate/morguedb:latest
   ports:
-    - "3306:3306"
+    - "3306"
   hostname: morguedb
 
 #   Morgue application
@@ -14,5 +14,7 @@ morgue:
     - "80:80"
   links:
     - morguedb:db
+  volumes:
+    - ./example.json:/var/www/morgue/config/example.json
   hostname: morgue
   domainname: morgue.yourdomain.com
