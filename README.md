@@ -18,4 +18,8 @@ $  docker-compose up -d
 
 Once done, login to morgue using the credentials `morgue:P0stm0rt3ms!`
 
-* Default WebUI: <http://morgue.yourdomain.com/>
+![homepage](morgue_home.png)
+
+![event](morgue_event.png)
+
+* Default url: <http://morgue.yourdomain.com/>
