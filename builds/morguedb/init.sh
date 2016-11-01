@@ -1,10 +1,11 @@
 #!/bin/sh
 
-# Wait 10 seconds because the mysql server doesn't accept connections at early startup
-sleep 10
+# Wait 5 seconds because the mysql server doesn't accept connections at early startup
+sleep 5
 
 # Init morgue database
 mysqladmin create morgue \
+  && mysqladmin -f drop test \
   && mysql < /install.sql \
   && mysql morgue < /schemas/postmortems.sql \
   && mysql morgue < /schemas/images.sql \
