@@ -13,7 +13,7 @@ RUN cd /var/www/ \
   && chmod 775 /run/apache2 \
   && chown apache:apache logs \
   && chmod g+w /var/log/apache2 \
-  && addgroup apache wheel 
+  && addgroup apache wheel
 
 RUN cd /var/www/morgue \
   && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
