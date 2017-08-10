@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: mariadb
+  selfLink: /api/v1/namespaces/default/services/mariadb
+spec:
+  clusterIP: <unknown>
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    run: mariadb
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
