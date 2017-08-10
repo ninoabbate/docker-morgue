@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -efuo pipefail
 
-cat <<END;
+cat <<END > /var/www/morgue/config/example.json
 {
-    "environment": "development",
-    "timezone": "Europe/Zurich",
+    "environment": "${MORGUE_ENVIRONMENT:-development}",
+    "timezone": "${TZ:-Europe/Zurich}",
 
     "database":
-    {  "mysqlhost": "localhost",
-        "mysqlport": 3306,
-        "database": "morgue",
-        "username": "morgue",
-        "password": "morgue_password"
+    {  "mysqlhost": "${MORGE_DB_HOST:-localhost}",
+        "mysqlport": ${MORGE_DB_PORT:-3306},
+        "database": "${MORGE_DB_DATABASE:-morgue}",
+        "username": "${MORGE_DB_USER:-morgue}",
+        "password": "${MORGE_DB_PASSWORD:-morgue_password}"
     },
 
 
@@ -47,26 +47,26 @@ cat <<END;
     ],
     "feature": [
     {   "name": "anniversary",
-        "enabled": "on",
-        "navbar": "on",
+        "enabled": "${MORGUE_ANNIVERSARY_ENABLED:-on}",
+        "navbar": "${MORGUE_ANNIVERSARY_NAVBAR_ENABLED:-on}",
         "mailto": "me@example.com",
         "mailfrom": "morgue@example.com",
         "custom_js_assets": ["anniversary.js"]
     },
 
     {   "name": "status_time",
-        "enabled": "on"
+        "enabled": "${MORGUE_STATUS_TIME_ENABLED:-on}"
     },
 
     {   "name": "contact",
-        "enabled": "on",
+        "enabled": "${MORGUE_CONTACT_ENABLED:-on}",
         "lookup_url": "https://directory.example.com/user/%s",
         "email_domain": "example.com"
     },
 
     {   "name": "calendar",
-        "enabled": "on",
-        "navbar" : "on",
+        "enabled": "${MORGUE_CALENDAR_ENABLED:-on}",
+        "navbar" : "${MORGUE_CALENDAR_NAVBAR_ENABLED:-on}",
         "custom_css_assets" : ["calendar.css"],
         "custom_js_assets" : ["calendar.js", "https://apis.google.com/js/client.js?onload=loadCal"],
         "clientId" : "CLIENTID",
@@ -79,21 +79,21 @@ cat <<END;
     },
 
     {   "name": "summary",
-        "enabled": "on",
+        "enabled": "${MORGUE_SUMMARY_ENABLED:-on}",
         "custom_js_assets": ["summary.js"]
     },
 
     {   "name": "images",
-        "enabled": "on"
+        "enabled": "${MORGUE_IMAGES_ENABLED:-on}"
     },
 
     {   "name": "irc",
-        "enabled": "on",
+        "enabled": "${MORGUE_IRC_ENABLED:-on}",
         "channels": ["#ops"]
     },
 
     {   "name": "jira",
-        "enabled": "on",
+        "enabled": "${MORGUE_JIRA_ENABLED:-on}",
         "baseurl": "https://jira.foo.com",
         "username": "jira_morgue",
         "password": "jira_morgue_password",
@@ -103,28 +103,28 @@ cat <<END;
     },
 
     {   "name": "links",
-        "enabled": "on"
+        "enabled": "${MORGUE_LINKS_ENABLED:-on}"
     },
 
     {   "name": "tags",
-        "enabled": "on"
+        "enabled": "${MORGUE_TAGS_ENABLED:-on}"
     },
 
     {   "name": "history",
-        "enabled": "on"
+        "enabled": "${MORGUE_HISTORY_ENABLED:-on}"
     },
 
     {   "name": "report",
-        "enabled": "on",
-        "navbar": "on"
+        "enabled": "${MORGUE_REPORT_ENABLED:-on}",
+        "navbar": "${MORGUE_REPORT_NAVBAR_ENABLED:-on}"
     },
 
     { "name": "search",
-      "enabled" : "on"
+      "enabled" : "${MORGUE_UPLOAD_ENABLED:-on}"
     },
 
     {   "name": "upload",
-        "enabled": "on",
+        "enabled": "${MORGUE_UPLOAD_ENABLED:-on}",
         "custom_js_assets": ["dropzone.min.js", "upload.js"],
         "custom_css_assets": ["dropzone.min.css"],
         "upload_driver_options": {
@@ -137,10 +137,12 @@ cat <<END;
     },
 
     {   "name": "why_surprised",
-        "enabled": "on",
+        "enabled": "${MORGUE_WHY_SURPRISED_ENABLED:-on}",
         "custom_js_assets": ["why_surprised.js"]
     }
     ],
-    "upload_dir": "/tmp/morgue"
+    "upload_dir": "${MORGUE_UPLOAD_DIR:-/tmp/morgue}"
 }
 END
+
+exec "${@}"
