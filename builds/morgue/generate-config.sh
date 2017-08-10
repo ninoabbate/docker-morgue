@@ -1,13 +1,17 @@
+#!/usr/bin/env bash
+set -efuo pipefail
+
+cat <<END;
 {
-    "environment": "production",
-    "timezone": "UTC",
+    "environment": "development",
+    "timezone": "Europe/Zurich",
 
     "database":
-    {   "mysqlhost": "morguedb",
-        "mysqlport": "3306",
+    {  "mysqlhost": "localhost",
+        "mysqlport": 3306,
         "database": "morgue",
         "username": "morgue",
-        "password": "morgue"
+        "password": "morgue_password"
     },
 
 
@@ -23,27 +27,30 @@
     },
 
     "locking" :
-    { "editable_days": "120",
-      "lock_time": "0"
-    },    
+    { "editable_days": 30,
+      "lock_time": 120
+    },
 
     "edit_page_features" : [
       "status_time",
       "contact",
       "calendar",
       "summary",
+      "why_surprised",
       "images",
+      "irc",
       "jira",
       "links",
       "tags",
-      "history"
+      "history",
+      "upload"
     ],
     "feature": [
     {   "name": "anniversary",
         "enabled": "on",
         "navbar": "on",
-        "mailto": "yourgroup@yourcompany.com",
-        "mailfrom": "morgue@yourcompany.com",
+        "mailto": "me@example.com",
+        "mailfrom": "morgue@example.com",
         "custom_js_assets": ["anniversary.js"]
     },
 
@@ -53,8 +60,8 @@
 
     {   "name": "contact",
         "enabled": "on",
-        "lookup_url": null,
-        "email_domain": "yourcompany.com"
+        "lookup_url": "https://directory.example.com/user/%s",
+        "email_domain": "example.com"
     },
 
     {   "name": "calendar",
@@ -62,13 +69,13 @@
         "navbar" : "on",
         "custom_css_assets" : ["calendar.css"],
         "custom_js_assets" : ["calendar.js", "https://apis.google.com/js/client.js?onload=loadCal"],
-        "clientId" : "yourclientID",
-        "apiKey" : "yourapiKey",
+        "clientId" : "CLIENTID",
+        "apiKey" : "APIKEY",
         "scopes" : ["https://www.googleapis.com/auth/calendar"],
-        "id" : "yourcalendarid",
-        "facilitator": "true",
-        "facilitators_email": ["yourgroup@yourcompany.com"],
-        "attendees_email": ["user1@yourcompany.com", "user2@yourcompany.com", "user3@yourcompany.com"]
+        "id" : "CALENDARID",
+        "facilitator": true,
+        "facilitators_email": ["facilitators@example.com"],
+        "attendees_email": ["attendees@example.com"]
     },
 
     {   "name": "summary",
@@ -81,15 +88,16 @@
     },
 
     {   "name": "irc",
-        "enabled": "off",
+        "enabled": "on",
         "channels": ["#ops"]
     },
 
     {   "name": "jira",
         "enabled": "on",
-        "baseurl": "https://yourcompany.atlassian.net",
-        "username": "jirausername",
-        "password": "jirapassword",
+        "baseurl": "https://jira.foo.com",
+        "username": "jira_morgue",
+        "password": "jira_morgue_password",
+        "proxy": "http://myproxy:8080",
         "additional_fields" : {
         }
     },
@@ -116,22 +124,23 @@
     },
 
     {   "name": "upload",
-        "enabled": "off",
+        "enabled": "on",
         "custom_js_assets": ["dropzone.min.js", "upload.js"],
         "custom_css_assets": ["dropzone.min.css"],
         "upload_driver_options": {
             "url": "http://my.server.home/",
             "username": "webdav",
             "password": "webdav",
-            "proxy": "false" 
+            "proxy": false
         },
         "upload_driver": "webdav"
     },
 
     {   "name": "why_surprised",
-        "enabled": "off",
+        "enabled": "on",
         "custom_js_assets": ["why_surprised.js"]
     }
     ],
     "upload_dir": "/tmp/morgue"
 }
+END
