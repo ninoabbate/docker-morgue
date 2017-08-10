@@ -29,8 +29,9 @@ RUN postconf "smtputf8_enable = no" \
 
 ADD httpd.conf /etc/apache2/httpd.conf
 ADD htpasswd /etc/htpasswd/.htpasswd
-ADD example.json /var/www/morgue/config/example.json
+ADD entrypoint.sh /
 
 EXPOSE 80
 
-ENTRYPOINT ["httpd","-D","FOREGROUND"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["httpd","-D","FOREGROUND"]
