@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app: morgue
+    run: morgue-db-init
+  name: morgue-db-init
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+spec:
+  template:
+    metadata:
+      labels:
+        run: morgue-db-init
+    spec:
+      restartPolicy: Never
+      containers:
+        - image: mariadb
+          imagePullPolicy: Always
+          name: morgue-db-init
+          env:
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "true"
+            - name: MYSQL_DATABASE
+              value: morgue
+            - name: MYSQL_USER
+              value: morgue
+            - name: MYSQL_PASSWORD
+              value: securepassword
+          command:
+            - sh
+            - -c
+          args:
+            - >
+              for i in postmortems images jira irc anniversary links; do
+                file="/opt/migrations/$i.sql"
+                if [ -e "$file" ]; then
+                  echo "Running migrations for $i" &&
+                  mysql -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}" -h"mariadb" "${MYSQL_DATABASE}" < "$file"
+                fi
+              done
+          volumeMounts:
+            - name: schema-migrations
+              mountPath: /opt/migrations
+      volumes:
+        - name: schema-migrations
+          configMap:
+            name: morgue-db-init
