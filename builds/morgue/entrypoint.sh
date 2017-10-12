@@ -7,11 +7,11 @@ cat <<END > /var/www/morgue/config/example.json
     "timezone": "${TZ:-Europe/Zurich}",
 
     "database":
-    {  "mysqlhost": "${MORGE_DB_HOST:-localhost}",
-        "mysqlport": ${MORGE_DB_PORT:-3306},
-        "database": "${MORGE_DB_DATABASE:-morgue}",
-        "username": "${MORGE_DB_USER:-morgue}",
-        "password": "${MORGE_DB_PASSWORD:-morgue_password}"
+    {  "mysqlhost": "${MORGUE_DB_HOST:-localhost}",
+        "mysqlport": ${MORGUE_DB_PORT:-3306},
+        "database": "${MORGUE_DB_DATABASE:-morgue}",
+        "username": "${MORGUE_DB_USER:-morgue}",
+        "password": "${MORGUE_DB_PASSWORD:-morgue_password}"
     },
 
 
