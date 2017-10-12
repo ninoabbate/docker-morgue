@@ -1,4 +1,4 @@
-#   Morgue
+# Morgue
 
 This application helps managing your postmortems. It has a pluggable feature system and can pull in related information from IRC and JIRA as well as storing relevant links and graphs.
 
